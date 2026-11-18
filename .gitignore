@@ -1,0 +1,4 @@
+node_modules/
+jspm_packages/
+
+//cada uno descargue el backend y frontend de forma local 
