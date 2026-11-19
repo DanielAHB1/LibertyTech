@@ -3,6 +3,7 @@ const cors = require('cors');
 const { getPool } = require('./config/db');
 const cajaRoutes = require('./routes/CajaRoutes');
 const VentasRoutes = require('./routes/VentasRoutes');
+const InventarioRoutes = require('./routes/InventarioRoutes');
 
 const app = express();
 app.use(cors());
@@ -33,6 +34,7 @@ app.get('/api/prueba', async (req, res) => {
 
 app.use('/api/caja', cajaRoutes);
 app.use('/api/ventas', VentasRoutes);
+app.use('/api/inventario', InventarioRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
