@@ -1,11 +1,10 @@
 //para conexion al server sql
-const sql = require('mssql');
-const dbConfig = require('../config/db');
+const {getPool, sql} = require('../config/db');
 
 class Inventariorecetas {
 
     async descontarporventa(productosVendidos) {
-        const pool = await sql.connect(dbConfig);
+        const pool = await getPool();
 
         const transaction = new sql.Transaction(pool);
         try {
@@ -210,7 +209,7 @@ class Inventariorecetas {
     }
 
     async obtenerEstadoInventario(executor = null) {
-        const pool = executor ? null : await sql.connect(dbConfig);
+        const pool = executor ? null : await getPool();
         const reqInsumos = executor ? new sql.Request(executor) : new sql.Request(pool);
 
         //consulta los insumos y marca si estan en alerta de stock minimo
@@ -248,7 +247,7 @@ class Inventariorecetas {
     }
 
     async obtenerAlertasStockMinimo(executor = null) {
-        const pool = executor ? null : await sql.connect(dbConfig);
+        const pool = executor ? null : await getPool();
         const reqInsumosAlerta = executor ? new sql.Request(executor) : new sql.Request(pool);
         const insumoAlerta = await reqInsumosAlerta.query(`
             SELECT
@@ -281,7 +280,7 @@ class Inventariorecetas {
     //funcion que registra los insumos nuevos
     async crearInsumo(datos){
         const {id_sucursal, nombre, unidad, costo_unitario, stock_actual, stock_minimo} = datos;
-        const pool = await sql.connect(dbConfig);
+        const pool = await getPool();
 
         const result = await pool.request()
         .input('id_sucursal', sql.Int, id_sucursal || 1)
@@ -293,13 +292,13 @@ class Inventariorecetas {
         .query(`
             INSERT INTO Productos (id_sucursal, nombre, tipo, precio, unidad, costo_unitario, stock_actual, stock_minimo)
             OUTPUT INSERTED.*
-            VALUES (@id_sucursal, @nombre, 'INSUMO', 0.00, @unidad, @costo_unitario, @stock_actual, @stock_minimo`);
+            VALUES (@id_sucursal, @nombre, 'INSUMO', 0.00, @unidad, @costo_unitario, @stock_actual, @stock_minimo)`);
             return result.recordset[0];
     }
 
     //funcion para listar los productos elaborados del menu:
-    async obtenerElaborados(){
-        const pool = await sql.connect(dbConfig);
+    async obtenerProductosElaborados(){
+        const pool = await getPool();
         const result = await pool.request().query(`
             SELECT id_producto, id_sucursal, nombre, precio, costo_unitario
             FROM Productos
@@ -312,7 +311,7 @@ class Inventariorecetas {
     //para consultar los ingredientes de una receta por id de los productos elaborados:
 
     async obtenerReceta(idProducto){
-        const pool = await sql.connect(dbConfig);
+        const pool = await getPool();
         const result = await pool.request()
         .input('id_producto', sql.Int, idProducto)
         .query(`SELECT r.id_receta, r.id_producto_elaborado, r.id_insumo, r.cantidad_requerida, p.nombre, p.unidad
@@ -325,9 +324,9 @@ class Inventariorecetas {
 
     //asociar o actualizar un insumo dentro de una receta:
 
-    async guardarInsumoReceta(datos){
+    async guardarInsumoreceta(datos){
         const { id_producto_elaborado, id_insumo, cantidad_requerida } = datos;
-        const pool = await sql.connect(dbConfig);
+        const pool = await getPool();
 
         await pool.request()
             .input('id_producto_elaborado', sql.Int, id_producto_elaborado)
@@ -352,7 +351,7 @@ class Inventariorecetas {
         
         //para eliminar un ingrediente de una receta:
         async eliminarInsumoReceta(idReceta) {
-        const pool = await sql.connect(dbConfig);
+        const pool = await getPool();
         await pool.request()
             .input('id_receta', sql.Int, idReceta)
             .query('DELETE FROM Recetas WHERE id_receta = @id_receta');
