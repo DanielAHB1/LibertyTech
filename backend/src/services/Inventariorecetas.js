@@ -262,7 +262,7 @@ class Inventariorecetas {
             WHERE tipo = N'INSUMO' AND stock_actual <= stock_minimo
         `);
 
-        const reqReventaAlerta = executor ? new sql.Request(executor) : new sql.Request(pool);
+        const reqReventaAlerta = executor ? new sql.Request(executor) : new sql.Request(pool); //funcion que genera la alertas segun el stock
         const revenaAlerta = await reqReventaAlerta.query(`
             SELECT
                 id_producto,
@@ -277,6 +277,91 @@ class Inventariorecetas {
 
         return [...insumoAlerta.recordset, ...revenaAlerta.recordset];
     }
-}
+
+    //funcion que registra los insumos nuevos
+    async crearInsumo(datos){
+        const {id_sucursal, nombre, unidad, costo_unitario, stock_actual, stock_minimo} = datos;
+        const pool = await sql.connect(dbConfig);
+
+        const result = await pool.request()
+        .input('id_sucursal', sql.Int, id_sucursal || 1)
+        .input('nombre', sql.NVarChar(150), nombre)
+        .input('unidad', sql.NVarChar(50), unidad)
+        .input('costo_unitario', sql.Decimal(12, 2), costo_unitario || 0)
+        .input('stock_actual', sql.Decimal(12, 3), stock_actual || 0)
+        .input('stock_minimo', sql.Decimal(12, 3), stock_minimo || 0)
+        .query(`
+            INSERT INTO Productos (id_sucursal, nombre, tipo, precio, unidad, costo_unitario, stock_actual, stock_minimo)
+            OUTPUT INSERTED.*
+            VALUES (@id_sucursal, @nombre, 'INSUMO', 0.00, @unidad, @costo_unitario, @stock_actual, @stock_minimo`);
+            return result.recordset[0];
+    }
+
+    //funcion para listar los productos elaborados del menu:
+    async obtenerElaborados(){
+        const pool = await sql.connect(dbConfig);
+        const result = await pool.request().query(`
+            SELECT id_producto, id_sucursal, nombre, precio, costo_unitario
+            FROM Productos
+            WHERE tipo = 'ELABORADO'
+            ORDER BY id_producto ASC`);
+
+            return result.recordset;
+    }
+
+    //para consultar los ingredientes de una receta por id de los productos elaborados:
+
+    async obtenerReceta(idProducto){
+        const pool = await sql.connect(dbConfig);
+        const result = await pool.request()
+        .input('id_producto', sql.Int, idProducto)
+        .query(`SELECT r.id_receta, r.id_producto_elaborado, r.id_insumo, r.cantidad_requerida, p.nombre, p.unidad
+            FROM Recetas r
+            INNER JOIN Productos p ON r.id_insumo = p.id_producto
+            WHERE r.id_producto_elaborado = @id_producto`);
+
+            return result.recordset;
+    }
+
+    //asociar o actualizar un insumo dentro de una receta:
+
+    async guardarInsumoReceta(datos){
+        const { id_producto_elaborado, id_insumo, cantidad_requerida } = datos;
+        const pool = await sql.connect(dbConfig);
+
+        await pool.request()
+            .input('id_producto_elaborado', sql.Int, id_producto_elaborado)
+            .input('id_insumo', sql.Int, id_insumo)
+            .input('cantidad_requerida', sql.Decimal(12, 3), cantidad_requerida)
+            .query(`
+                IF EXISTS (
+                    SELECT 1 FROM Recetas
+                    WHERE id_producto_elaborado = @id_producto_elaborado AND id_insumo = @id_insumo
+                )
+                    UPDATE Recetas
+                    SET cantidad_requerida = @cantidad_requerida
+                    WHERE id_producto_elaborado = @id_producto_elaborado AND id_insumo = @id_insumo
+                ELSE
+                    INSERT INTO Recetas (id_producto_elaborado, id_insumo, cantidad_requerida)
+                    VALUES (@id_producto_elaborado, @id_insumo, @cantidad_requerida)
+            `);
+
+        return { ok: true };
+        
+        }
+        
+        //para eliminar un ingrediente de una receta:
+        async eliminarInsumoReceta(idReceta) {
+        const pool = await sql.connect(dbConfig);
+        await pool.request()
+            .input('id_receta', sql.Int, idReceta)
+            .query('DELETE FROM Recetas WHERE id_receta = @id_receta');
+
+        return { ok: true };
+
+        }
+
+    }
+
 
 module.exports = new Inventariorecetas(); //instancia de inventario para usarla en otros archivos
