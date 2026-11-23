@@ -1,111 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --sv-bg: #f4f7fb;
+  --sv-sky: #e6eefc;
+  --sv-blue: #003893;
+  --sv-ink: #0f172a;
+  --sv-border: #cbd5e1;
 }
 
 body {
   margin: 0;
+  padding: 0;
+  background-color: var(--sv-bg);
+  color: var(--sv-ink);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+.font-kafe-display {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Fondo claro con la curva orgánica azul en el lateral derecho */
+.kafe-page-bg {
+  min-height: 100vh;
+  background-color: var(--sv-bg);
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 3.5rem;
+}
+
+.kafe-wave-deco {
+  position: fixed;
+  top: 0;
+  right: -30px;
+  width: 240px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.12;
+}
+
+.kafe-content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sello circular en blanco, tinta negra y azul cobalto */
+.kafe-stamp {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 3px solid var(--sv-ink);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(0, 56, 147, 0.08);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+.kafe-stamp-divider {
+  width: 75%;
+  height: 1.5px;
+  background-color: var(--sv-blue);
+  margin: 4px 0;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* Círculo insignia de sucursal */
+.kafe-punto-circle {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--sv-sky);
+  border: 2px solid var(--sv-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--sv-blue);
+  flex-shrink: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
+/* Icono circular azul cobalto con símbolo blanco */
+.kafe-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--sv-blue);
+  color: #ffffff;
   display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* Etiqueta rectangular azul cobalto con letra blanca */
+.kafe-pill-banner {
+  display: inline-block;
+  background-color: var(--sv-blue);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 6px;
+}
+
+/* Tarjetas blancas limpias */
+.kafe-card {
+  background-color: #ffffff;
+  border: 1.5px solid var(--sv-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.kafe-input {
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--sv-border) !important;
+  border-radius: 8px !important;
+  color: var(--sv-ink) !important;
+}
+
+.kafe-input:focus {
+  border-color: var(--sv-blue) !important;
+  box-shadow: 0 0 0 0.15rem rgba(0, 56, 147, 0.15) !important;
+}
+
+.btn-kafe-primary {
+  background-color: var(--sv-blue) !important;
+  border-color: var(--sv-blue) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease;
+}
+
+.btn-kafe-primary:hover {
+  background-color: #002666 !important;
+  border-color: #002666 !important;
+}
+
+.btn-kafe-outline {
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--sv-blue) !important;
+  color: var(--sv-blue) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.btn-kafe-outline:hover {
+  background-color: var(--sv-sky) !important;
+}
+
+.kafe-recipe-row {
+  border-bottom: 1px dashed var(--sv-border);
+  padding: 9px 4px;
+}
+
+.kafe-recipe-row:last-child {
+  border-bottom: none;
 }
