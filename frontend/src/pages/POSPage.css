@@ -1,0 +1,62 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* Identidad visual del módulo POS */
+.pos-page {
+  --pos-bg: #F3EDE3;
+  --pos-surface: #DCCAB3;
+  --pos-ink: #4A3326;
+  --pos-primary: #5B1E2D;
+  --pos-accent: #C76A4A;
+  --pos-muted: rgba(74, 51, 38, 0.72);
+
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 48px 5%;
+  background-color: var(--pos-bg);
+  color: var(--pos-ink);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Encabezado principal del punto de venta */
+.pos-page__header {
+  max-width: 850px;
+  margin: 0 auto 40px;
+}
+
+.pos-page__eyebrow {
+  margin: 0 0 12px;
+  color: var(--pos-primary);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.pos-page__title {
+  margin: 0 0 16px;
+  color: var(--pos-ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -2px;
+}
+
+.pos-page__description {
+  margin: 0;
+  color: var(--pos-muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 768px) {
+  .pos-page {
+    padding: 32px 20px;
+  }
+
+  .pos-page__title {
+    letter-spacing: -1px;
+  }
+}
