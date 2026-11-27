@@ -1,17 +1,19 @@
-
-import { useEffect, useState } from 'react';
-import { posService } from '../services/posService';
-import ProductoCard from '../components/pos/ProductoCard';
-import './POSPage.css';
+import { useEffect, useState } from "react";
+import { posService } from "../services/posService";
+import ProductoCard from "../components/pos/ProductoCard";
+import "./POSPage.css";
 
 function POSPage() {
   // Guarda los productos y el estado de la consulta.
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-// Carga los productos de la sucursal cuando se abre el POS.
-useEffect(() => {
+  // Guarda el producto que selecciona el cajero.
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  // Carga los productos de la sucursal cuando se abre el POS.
+  useEffect(() => {
     let activo = true;
 
     async function cargarProductos() {
@@ -55,9 +57,7 @@ useEffect(() => {
         {cargando && <p>Cargando productos...</p>}
 
         {error && (
-          <p role="alert">
-            No se pudieron cargar los productos: {error}
-          </p>
+          <p role="alert">No se pudieron cargar los productos: {error}</p>
         )}
 
         {!cargando && !error && productos.length === 0 && (
@@ -65,17 +65,23 @@ useEffect(() => {
         )}
 
         {!cargando && !error && (
-          
-<div className="pos-productos">
-  {/* Crea una tarjeta por cada producto recibido del backend. */}
-  {productos.map((producto) => (
-    <ProductoCard
-      key={producto.id_producto}
-      producto={producto}
-    />
-  ))}
-</div>
+          <>
+            <div className="pos-productos">
+              {/* Crea una tarjeta por cada producto recibido del backend. */}
+              {productos.map((producto) => (
+                <ProductoCard
+                  key={producto.id_producto}
+                  producto={producto}
+                  onSeleccionar={() => setProductoSeleccionado(producto)}
+                />
+              ))}
+            </div>
 
+            {/* Confirma qué producto fue seleccionado. */}
+            {productoSeleccionado && (
+              <p>Producto seleccionado: {productoSeleccionado.nombre}</p>
+            )}
+          </>
         )}
       </section>
     </main>
