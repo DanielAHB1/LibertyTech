@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import { posService } from "../services/posService";
 import ProductoCard from "../components/pos/ProductoCard";
 import ResumenPedido from "../components/pos/ResumenPedido";
 import DetalleProducto from "../components/pos/DetalleProducto";
 import "./POSPage.css";
+import FormularioCobro from "../components/pos/FormularioCobro";
 
 function POSPage() {
   // Guarda los productos y el estado de la consulta.
@@ -139,16 +139,11 @@ function POSPage() {
 
         {/* Muestra el estado de la caja consultado desde el backend. */}
         {estadoCaja.cargando && (
-          <p className="pos-page__caja">
-            Consultando estado de caja...
-          </p>
+          <p className="pos-page__caja">Consultando estado de caja...</p>
         )}
 
         {estadoCaja.error && (
-          <p
-            className="pos-page__caja pos-page__caja--error"
-            role="alert"
-          >
+          <p className="pos-page__caja pos-page__caja--error" role="alert">
             Error al consultar caja: {estadoCaja.error}
           </p>
         )}
@@ -180,9 +175,7 @@ function POSPage() {
         {cargando && <p>Cargando productos...</p>}
 
         {error && (
-          <p role="alert">
-            No se pudieron cargar los productos: {error}
-          </p>
+          <p role="alert">No se pudieron cargar los productos: {error}</p>
         )}
 
         {!cargando && !error && productos.length === 0 && (
@@ -214,13 +207,17 @@ function POSPage() {
         )}
       </section>
 
-      {/* Muestra los productos agregados y el subtotal del pedido. */}
-      <ResumenPedido
-        pedido={pedido}
-        onEliminar={eliminarDelPedido}
-        onCambiarCantidad={cambiarCantidadPedido}
-        onVaciar={vaciarPedido}
-      />
+      {/* Agrupa el resumen del pedido y las opciones de cobro. */}
+      <div className="pos-venta">
+        <ResumenPedido
+          pedido={pedido}
+          onEliminar={eliminarDelPedido}
+          onCambiarCantidad={cambiarCantidadPedido}
+          onVaciar={vaciarPedido}
+        />
+
+        <FormularioCobro />
+      </div>
     </main>
   );
 }

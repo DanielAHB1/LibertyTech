@@ -119,11 +119,15 @@
     min-width: 0;
   }
 
-  /* Coloca el resumen junto al catálogo. */
-  .pos-pedido {
+  /* Ubica el pedido y el cobro en la columna derecha. */
+  .pos-venta {
     grid-column: 2;
-    margin-top: 0;
     min-width: 0;
+  }
+
+  /* Evita espacio adicional sobre el resumen del pedido. */
+  .pos-venta .pos-pedido {
+    margin-top: 0;
   }
 
   /* Mantiene dos tarjetas cuando el espacio es limitado. */
