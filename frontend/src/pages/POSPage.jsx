@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { posService } from "../services/posService";
 import ProductoCard from "../components/pos/ProductoCard";
 import "./POSPage.css";
+import DetalleProducto from "../components/pos/DetalleProducto";
 
 function POSPage() {
   // Guarda los productos y el estado de la consulta.
@@ -77,10 +78,11 @@ function POSPage() {
               ))}
             </div>
 
-            {/* Confirma qué producto fue seleccionado. */}
-            {productoSeleccionado && (
-              <p>Producto seleccionado: {productoSeleccionado.nombre}</p>
-            )}
+            {/* Muestra los detalles del producto y permite cerrar la ventana. */}
+            <DetalleProducto
+              producto={productoSeleccionado}
+              onCerrar={() => setProductoSeleccionado(null)}
+            />
           </>
         )}
       </section>

@@ -1,0 +1,121 @@
+
+/* Fondo oscuro que destaca la ventana sobre el catálogo. */
+.pos-detalle__fondo {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(74, 51, 38, 0.6);
+}
+
+/* Ventana principal con distribución para imagen y detalles. */
+.pos-detalle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: min(100%, 960px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: #f3ede3;
+  border-radius: 24px;
+}
+
+/* Área visual del producto con los colores Café de Otoño. */
+.pos-detalle__imagen {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 480px;
+  padding: 36px;
+  background: linear-gradient(
+    155deg,
+    #4a3326 0%,
+    #5b1e2d 55%,
+    #c76a4a 100%
+  );
+  border-radius: 24px 0 0 24px;
+}
+
+.pos-detalle__imagen span {
+  color: #f3ede3;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Información del producto seleccionado. */
+.pos-detalle__contenido {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 56px 44px;
+  color: #4a3326;
+}
+
+.pos-detalle__categoria {
+  margin: 0;
+  color: #c76a4a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.pos-detalle__contenido h2 {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pos-detalle__precio {
+  margin: 0;
+  color: #5b1e2d;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+/* Botón para cerrar la ventana de detalles. */
+.pos-detalle__cerrar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dccab3;
+  border-radius: 50%;
+  background: #f3ede3;
+  color: #4a3326;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.pos-detalle__cerrar:hover {
+  background: #5b1e2d;
+  color: #f3ede3;
+}
+
+/* Adapta la ventana a teléfonos y pantallas pequeñas. */
+@media (max-width: 700px) {
+  .pos-detalle {
+    grid-template-columns: 1fr;
+  }
+
+  .pos-detalle__imagen {
+    min-height: 260px;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .pos-detalle__contenido {
+    padding: 32px 24px;
+  }
+}
+
