@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { inventarioService } from '../services/inventarioService';
+import { posService } from '../services/posService';
 import './POSPage.css';
 
 function POSPage() {
@@ -9,13 +9,13 @@ function POSPage() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
-  // Obtiene los productos elaborados al abrir el POS.
-  useEffect(() => {
+// Carga los productos de la sucursal cuando se abre el POS.
+useEffect(() => {
     let activo = true;
 
     async function cargarProductos() {
       try {
-        const datos = await inventarioService.obtenerProductosElaborados();
+        const datos = await posService.obtenerProductos(1);
 
         if (activo) {
           setProductos(datos);
@@ -49,7 +49,7 @@ function POSPage() {
       </header>
 
       <section className="pos-catalogo">
-        <h2>Menú elaborado</h2>
+        <h2>Productos disponibles</h2>
 
         {cargando && <p>Cargando productos...</p>}
 
@@ -60,7 +60,7 @@ function POSPage() {
         )}
 
         {!cargando && !error && productos.length === 0 && (
-          <p>No hay productos elaborados disponibles.</p>
+          <p>No hay productos disponibles para esta sucursal.</p>
         )}
 
         {!cargando && !error && (
