@@ -1,0 +1,103 @@
+/* Panel que presenta el pedido con la paleta Café de Otoño. */
+.pos-pedido {
+  margin-top: 32px;
+  padding: 32px;
+  border: 1px solid #dccab3;
+  border-radius: 24px;
+  background-color: #f3ede3;
+  color: #4a3326;
+}
+
+.pos-pedido h2 {
+  margin: 0 0 24px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* Lista de productos sin viñetas y con separación uniforme. */
+.pos-pedido__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pos-pedido__item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid #dccab3;
+}
+
+.pos-pedido__item div {
+  flex: 1;
+  min-width: 0;
+}
+
+.pos-pedido__item strong {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pos-pedido__item > strong {
+  flex-shrink: 0;
+  color: #5b1e2d;
+  white-space: nowrap;
+}
+
+.pos-pedido__item p {
+  margin: 8px 0 0;
+  color: rgba(74, 51, 38, 0.72);
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+}
+
+/* Separa el subtotal y destaca el importe acumulado. */
+.pos-pedido__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #dccab3;
+}
+
+.pos-pedido__total span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pos-pedido__total strong {
+  color: #5b1e2d;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* Ajusta los espacios para pantallas pequeñas. */
+@media (max-width: 480px) {
+  .pos-pedido {
+    padding: 24px 18px;
+  }
+
+  .pos-pedido__item {
+    gap: 12px;
+  }
+
+  .pos-pedido__total strong {
+    font-size: 22px;
+  }
+}
+
+/* Evita una línea duplicada antes del subtotal. */
+.pos-pedido__item:last-child {
+  border-bottom: none;
+}
+

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { posService } from "../services/posService";
 import ProductoCard from "../components/pos/ProductoCard";
+import ResumenPedido from "../components/pos/ResumenPedido";
 import "./POSPage.css";
 import DetalleProducto from "../components/pos/DetalleProducto";
 
@@ -120,9 +121,14 @@ function POSPage() {
             )}
           </>
         )}
+
       </section>
+
+      {/* Muestra los productos agregados y el subtotal del pedido. */}
+      <ResumenPedido pedido={pedido} />
     </main>
   );
 }
+
 
 export default POSPage;

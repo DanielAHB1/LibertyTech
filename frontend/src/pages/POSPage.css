@@ -98,3 +98,46 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Distribuye el catálogo y el pedido en proporción 70/30. */
+@media (min-width: 1101px) {
+  .pos-page {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(300px, 3fr);
+    column-gap: 28px;
+    align-items: start;
+  }
+
+  /* El encabezado ocupa el ancho completo. */
+  .pos-page__header {
+    grid-column: 1 / -1;
+  }
+
+  /* Permite que el catálogo aproveche toda su columna. */
+  .pos-catalogo {
+    grid-column: 1;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    min-width: 0;
+  }
+
+  /* Coloca el resumen junto al catálogo. */
+  .pos-pedido {
+    grid-column: 2;
+    margin-top: 0;
+    min-width: 0;
+  }
+
+  /* Mantiene dos tarjetas cuando el espacio es limitado. */
+  .pos-page .pos-productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Muestra tres tarjetas cuando la pantalla es suficientemente ancha. */
+@media (min-width: 1450px) {
+  .pos-page .pos-productos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
