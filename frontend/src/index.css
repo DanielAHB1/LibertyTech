@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --oto-granate: #5b1e2d;
+  --oto-terracota: #c76a4a;
+  --oto-arena: #dccab3;
+  --oto-crema: #f3ede3;
+  --oto-cafe: #4a3326;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--oto-crema);
+  color: var(--oto-cafe);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-kafe-display {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Fondo Crema Natural con curva decorativa Terracota Suave */
+.kafe-page-bg {
+  min-height: 100vh;
+  background-color: var(--oto-crema);
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 3.5rem;
+}
+
+.kafe-wave-deco {
+  position: fixed;
+  top: 0;
+  right: -30px;
+  width: 240px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.16;
+}
+
+.kafe-content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sello circular en blanco, Café Oscuro y Granate Profundo */
+.kafe-stamp {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  border: 3px solid var(--oto-cafe);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(74, 51, 38, 0.1);
+}
+
+.kafe-stamp-divider {
+  width: 75%;
+  height: 1.5px;
+  background-color: var(--oto-terracota);
+  margin: 4px 0;
+}
+
+/* Círculo insignia de sucursal en Arena Suave */
+.kafe-punto-circle {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--oto-arena);
+  border: 2px solid var(--oto-granate);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--oto-granate);
+  flex-shrink: 0;
+}
+
+/* Icono circular Terracota Suave con letra blanca */
+.kafe-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--oto-terracota);
+  color: #ffffff !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* Cintillo en Granate Profundo con letra blanca */
+.kafe-pill-banner {
+  display: inline-block;
+  background-color: var(--oto-granate);
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 6px;
+}
+
+/* Tarjetas blancas con borde Arena Suave */
+.kafe-card {
+  background-color: #ffffff;
+  border: 1.5px solid var(--oto-arena) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(74, 51, 38, 0.06);
+}
+
+.kafe-input {
+  background-color: #fcfaf7 !important;
+  border: 1.5px solid var(--oto-arena) !important;
+  border-radius: 8px !important;
+  color: var(--oto-cafe) !important;
+}
+
+.kafe-input:focus {
+  border-color: var(--oto-terracota) !important;
+  box-shadow: 0 0 0 0.15rem rgba(199, 106, 74, 0.2) !important;
+}
+
+.btn-kafe-primary {
+  background-color: var(--oto-granate) !important;
+  border-color: var(--oto-granate) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease;
+}
+
+.btn-kafe-primary:hover {
+  background-color: var(--oto-cafe) !important;
+  border-color: var(--oto-cafe) !important;
+  color: #ffffff !important;
+}
+
+.btn-kafe-outline {
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--oto-granate) !important;
+  color: var(--oto-granate) !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.btn-kafe-outline:hover {
+  background-color: var(--oto-crema) !important;
+  color: var(--oto-cafe) !important;
+}
+
+.kafe-recipe-row {
+  border-bottom: 1px dashed var(--oto-arena);
+  padding: 9px 4px;
+}
+
+.kafe-recipe-row:last-child {
+  border-bottom: none;
+}
+
+/* Etiquetas (Badges) de alto contraste sin interferencia de Bootstrap */
+.badge-oto-cafe {
+  background-color: var(--oto-cafe) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0.42em 0.72em;
+}
+
+.badge-oto-granate {
+  background-color: var(--oto-granate) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0.42em 0.72em;
+}
+
+.badge-oto-terracota {
+  background-color: var(--oto-terracota) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0.42em 0.72em;
+}
+
+.badge-oto-arena {
+  background-color: var(--oto-arena) !important;
+  color: var(--oto-cafe) !important;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  padding: 0.42em 0.72em;
+}
+
+.badge-oto-crema {
+  background-color: var(--oto-crema) !important;
+  color: var(--oto-cafe) !important;
+  border: 1px solid var(--oto-arena);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  padding: 0.42em 0.72em;
+}
+
+/* Tabla con encabezado Granate Profundo y texto blanco claro */
+.kafe-table thead th {
+  background-color: var(--oto-granate) !important;
+  color: #ffffff !important;
+  border-bottom: none !important;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.kafe-table tbody td {
+  color: var(--oto-cafe) !important;
+  border-color: #ece4d8;
+}
+
+.kafe-row-critico td {
+  background-color: #f9ebe5 !important;
+  color: var(--oto-cafe) !important;
+}
+
+/* Alerta oscura con texto blanco y botón cerrar visible */
+.alert-oto-error {
+  background-color: var(--oto-granate) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.alert-oto-error .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
