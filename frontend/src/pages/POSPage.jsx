@@ -13,6 +13,9 @@ function POSPage() {
   // Guarda el producto que selecciona el cajero.
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
+  // Guarda los productos y cantidades del pedido actual.
+  const [pedido, setPedido] = useState([]);
+
   // Carga los productos de la sucursal cuando se abre el POS.
   useEffect(() => {
     let activo = true;
@@ -42,6 +45,27 @@ function POSPage() {
     };
   }, []);
 
+  // Agrega un producto o aumenta su cantidad si ya existe.
+  function agregarAlPedido(producto, cantidad) {
+    setPedido((actual) => {
+      const existente = actual.find(
+        (item) => item.id_producto === producto.id_producto,
+      );
+
+      if (existente) {
+        return actual.map((item) =>
+          item.id_producto === producto.id_producto
+            ? { ...item, cantidad: item.cantidad + cantidad }
+            : item,
+        );
+      }
+
+      return [...actual, { ...producto, cantidad }];
+    });
+
+    setProductoSeleccionado(null);
+  }
+
   return (
     <main className="pos-page">
       <header className="pos-page__header">
@@ -54,6 +78,12 @@ function POSPage() {
 
       <section className="pos-catalogo">
         <h2>Productos disponibles</h2>
+
+        {/* Muestra las unidades agregadas al pedido. */}
+        <p>
+          Unidades en el pedido:{" "}
+          {pedido.reduce((total, item) => total + item.cantidad, 0)}
+        </p>
 
         {cargando && <p>Cargando productos...</p>}
 
@@ -79,10 +109,15 @@ function POSPage() {
             </div>
 
             {/* Muestra los detalles del producto y permite cerrar la ventana. */}
-            <DetalleProducto
-              producto={productoSeleccionado}
-              onCerrar={() => setProductoSeleccionado(null)}
-            />
+
+            {/* Abre los detalles solo cuando existe un producto seleccionado. */}
+            {productoSeleccionado && (
+              <DetalleProducto
+                producto={productoSeleccionado}
+                onCerrar={() => setProductoSeleccionado(null)}
+                onAgregar={agregarAlPedido}
+              />
+            )}
           </>
         )}
       </section>
