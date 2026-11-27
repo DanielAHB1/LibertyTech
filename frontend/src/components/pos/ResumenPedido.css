@@ -146,3 +146,57 @@
   outline-offset: 3px;
 }
 
+/* Agrupa los controles de cantidad en un selector compacto. */
+.pos-pedido__cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 4px;
+  border: 1px solid #dccab3;
+  border-radius: 999px;
+}
+
+/* Botones circulares para aumentar y disminuir unidades. */
+.pos-pedido__cantidad button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #dccab3;
+  color: #4a3326;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pos-pedido__cantidad button:hover:not(:disabled) {
+  background: #5b1e2d;
+  color: #f3ede3;
+}
+
+.pos-pedido__cantidad button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Mantiene centrado el número de unidades. */
+.pos-pedido__cantidad span {
+  min-width: 18px;
+  text-align: center;
+  color: #4a3326;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pos-pedido__cantidad button:focus-visible {
+  outline: 2px solid #c76a4a;
+  outline-offset: 3px;
+}
+
+

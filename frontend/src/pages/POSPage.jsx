@@ -74,6 +74,17 @@ function POSPage() {
     );
   }
 
+  // Aumenta o disminuye unidades sin permitir cantidades menores que uno.
+  function cambiarCantidadPedido(idProducto, cambio) {
+    setPedido((actual) =>
+      actual.map((item) =>
+        item.id_producto === idProducto
+          ? { ...item, cantidad: Math.max(1, item.cantidad + cambio) }
+          : item
+      )
+    );
+  }
+
   return (
     <main className="pos-page">
       <header className="pos-page__header">
@@ -116,8 +127,6 @@ function POSPage() {
               ))}
             </div>
 
-            {/* Muestra los detalles del producto y permite cerrar la ventana. */}
-
             {/* Abre los detalles solo cuando existe un producto seleccionado. */}
             {productoSeleccionado && (
               <DetalleProducto
@@ -132,7 +141,11 @@ function POSPage() {
 
       {/* Muestra los productos agregados y el subtotal del pedido. */}
 
-      <ResumenPedido pedido={pedido} onEliminar={eliminarDelPedido} />
+      <ResumenPedido 
+        pedido={pedido}
+        onEliminar={eliminarDelPedido}
+        onCambiarCantidad={cambiarCantidadPedido}
+      />
     </main>
   );
 }

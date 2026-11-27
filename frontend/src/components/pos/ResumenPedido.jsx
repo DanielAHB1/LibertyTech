@@ -1,6 +1,6 @@
 import "./ResumenPedido.css";
 
-function ResumenPedido({ pedido, onEliminar }) {
+function ResumenPedido({ pedido, onEliminar, onCambiarCantidad }) {
   // Calcula el importe acumulado de los productos del pedido.
   const subtotal = pedido.reduce(
     (total, item) => total + Number(item.precio) * item.cantidad,
@@ -23,6 +23,28 @@ function ResumenPedido({ pedido, onEliminar }) {
                 <p>
                   {item.cantidad} × ${Number(item.precio).toFixed(2)}
                 </p>
+
+                {/* Modifica las unidades sin eliminar el producto. */}
+                <div className="pos-pedido__cantidad">
+                  <button
+                    type="button"
+                    aria-label={`Disminuir cantidad de ${item.nombre}`}
+                    disabled={item.cantidad === 1}
+                    onClick={() => onCambiarCantidad(item.id_producto, -1)}
+                  >
+                    −
+                  </button>
+
+                  <span>{item.cantidad}</span>
+
+                  <button
+                    type="button"
+                    aria-label={`Aumentar cantidad de ${item.nombre}`}
+                    onClick={() => onCambiarCantidad(item.id_producto, 1)}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
               <strong>
