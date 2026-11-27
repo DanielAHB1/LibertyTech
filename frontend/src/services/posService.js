@@ -31,4 +31,30 @@ export const posService = {
     // Devuelve los productos elaborados y de reventa.
     return data.productos || [];
   },
+
+  // Consulta si existe una caja abierta en la sucursal.
+  async obtenerCajaActiva(idSucursal = 1) {
+    if (!Number.isInteger(idSucursal) || idSucursal <= 0) {
+      throw new Error("La sucursal seleccionada no es válida");
+    }
+
+    const response = await fetch(`/api/caja/activa/${idSucursal}`, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    // Una respuesta 404 indica que no existe una caja abierta.
+    if (response.status === 404) {
+      return null;
+    }
+
+    if (!response.ok) {
+      throw new Error(data.mensaje || "Error al consultar la caja");
+    }
+
+    return data.caja;
+  },
+
 };

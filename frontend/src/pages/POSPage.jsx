@@ -1,9 +1,10 @@
+
 import { useEffect, useState } from "react";
 import { posService } from "../services/posService";
 import ProductoCard from "../components/pos/ProductoCard";
 import ResumenPedido from "../components/pos/ResumenPedido";
-import "./POSPage.css";
 import DetalleProducto from "../components/pos/DetalleProducto";
+import "./POSPage.css";
 
 function POSPage() {
   // Guarda los productos y el estado de la consulta.
@@ -16,6 +17,13 @@ function POSPage() {
 
   // Guarda los productos y cantidades del pedido actual.
   const [pedido, setPedido] = useState([]);
+
+  // Guarda el resultado de la consulta de caja.
+  const [estadoCaja, setEstadoCaja] = useState({
+    caja: null,
+    cargando: true,
+    error: "",
+  });
 
   // Carga los productos de la sucursal cuando se abre el POS.
   useEffect(() => {
@@ -40,6 +48,35 @@ function POSPage() {
     }
 
     cargarProductos();
+
+    return () => {
+      activo = false;
+    };
+  }, []);
+
+  // Consulta la caja abierta de la sucursal al iniciar el POS.
+  useEffect(() => {
+    let activo = true;
+
+    async function cargarCaja() {
+      try {
+        const caja = await posService.obtenerCajaActiva(1);
+
+        if (activo) {
+          setEstadoCaja({ caja, cargando: false, error: "" });
+        }
+      } catch (err) {
+        if (activo) {
+          setEstadoCaja({
+            caja: null,
+            cargando: false,
+            error: err.message,
+          });
+        }
+      }
+    }
+
+    cargarCaja();
 
     return () => {
       activo = false;
@@ -95,9 +132,40 @@ function POSPage() {
       <header className="pos-page__header">
         <p className="pos-page__eyebrow">Orígenes SV</p>
         <h1 className="pos-page__title">Punto de venta</h1>
+
         <p className="pos-page__description">
           Selecciona los productos para comenzar una venta.
         </p>
+
+        {/* Muestra el estado de la caja consultado desde el backend. */}
+        {estadoCaja.cargando && (
+          <p className="pos-page__caja">
+            Consultando estado de caja...
+          </p>
+        )}
+
+        {estadoCaja.error && (
+          <p
+            className="pos-page__caja pos-page__caja--error"
+            role="alert"
+          >
+            Error al consultar caja: {estadoCaja.error}
+          </p>
+        )}
+
+        {!estadoCaja.cargando && !estadoCaja.error && (
+          <p
+            className={`pos-page__caja ${
+              estadoCaja.caja
+                ? "pos-page__caja--abierta"
+                : "pos-page__caja--cerrada"
+            }`}
+          >
+            {estadoCaja.caja
+              ? `Caja #${estadoCaja.caja.id_caja} abierta — ${estadoCaja.caja.cajero}`
+              : "No hay una caja abierta para esta sucursal."}
+          </p>
+        )}
       </header>
 
       <section className="pos-catalogo">
@@ -112,7 +180,9 @@ function POSPage() {
         {cargando && <p>Cargando productos...</p>}
 
         {error && (
-          <p role="alert">No se pudieron cargar los productos: {error}</p>
+          <p role="alert">
+            No se pudieron cargar los productos: {error}
+          </p>
         )}
 
         {!cargando && !error && productos.length === 0 && (
@@ -132,7 +202,7 @@ function POSPage() {
               ))}
             </div>
 
-            {/* Abre los detalles solo cuando existe un producto seleccionado. */}
+            {/* Abre los detalles del producto seleccionado. */}
             {productoSeleccionado && (
               <DetalleProducto
                 producto={productoSeleccionado}
