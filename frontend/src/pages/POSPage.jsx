@@ -67,6 +67,13 @@ function POSPage() {
     setProductoSeleccionado(null);
   }
 
+  // Elimina un producto del pedido sin modificar los demás.
+  function eliminarDelPedido(idProducto) {
+    setPedido((actual) =>
+      actual.filter((item) => item.id_producto !== idProducto),
+    );
+  }
+
   return (
     <main className="pos-page">
       <header className="pos-page__header">
@@ -121,14 +128,13 @@ function POSPage() {
             )}
           </>
         )}
-
       </section>
 
       {/* Muestra los productos agregados y el subtotal del pedido. */}
-      <ResumenPedido pedido={pedido} />
+
+      <ResumenPedido pedido={pedido} onEliminar={eliminarDelPedido} />
     </main>
   );
 }
-
 
 export default POSPage;

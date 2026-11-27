@@ -101,3 +101,48 @@
   border-bottom: none;
 }
 
+/* Ordena el nombre, importe y botón de eliminación. */
+.pos-pedido__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 16px;
+  row-gap: 8px;
+}
+
+.pos-pedido__item > div {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.pos-pedido__item > strong {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+/* Botón discreto para retirar productos del pedido. */
+.pos-pedido__eliminar {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: end;
+  padding: 6px 12px;
+  border: 1px solid #dccab3;
+  border-radius: 999px;
+  background: transparent;
+  color: #5b1e2d;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pos-pedido__eliminar:hover {
+  background: #5b1e2d;
+  color: #f3ede3;
+}
+
+.pos-pedido__eliminar:focus-visible {
+  outline: 2px solid #c76a4a;
+  outline-offset: 3px;
+}
+

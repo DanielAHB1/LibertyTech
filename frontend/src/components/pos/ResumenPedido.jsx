@@ -1,10 +1,10 @@
 import "./ResumenPedido.css";
 
-function ResumenPedido({ pedido }) {
+function ResumenPedido({ pedido, onEliminar }) {
   // Calcula el importe acumulado de los productos del pedido.
   const subtotal = pedido.reduce(
     (total, item) => total + Number(item.precio) * item.cantidad,
-    0
+    0,
   );
 
   return (
@@ -28,6 +28,16 @@ function ResumenPedido({ pedido }) {
               <strong>
                 ${(Number(item.precio) * item.cantidad).toFixed(2)}
               </strong>
+
+              {/* Permite quitar un producto completo del pedido. */}
+              <button
+                type="button"
+                className="pos-pedido__eliminar"
+                onClick={() => onEliminar(item.id_producto)}
+                aria-label={`Eliminar ${item.nombre} del pedido`}
+              >
+                Quitar
+              </button>
             </li>
           ))}
         </ul>
