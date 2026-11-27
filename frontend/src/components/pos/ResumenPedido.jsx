@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./ResumenPedido.css";
 
-function ResumenPedido({ pedido, onEliminar, onCambiarCantidad }) {
+function ResumenPedido({ pedido, onEliminar, onCambiarCantidad, onVaciar }) {
+  // Controla si el cajero debe confirmar antes de vaciar el pedido.
+  const [confirmarVaciado, setConfirmarVaciado] = useState(false);
+
   // Calcula el importe acumulado de los productos del pedido.
   const subtotal = pedido.reduce(
     (total, item) => total + Number(item.precio) * item.cantidad,
@@ -69,6 +73,35 @@ function ResumenPedido({ pedido, onEliminar, onCambiarCantidad }) {
         <span>Subtotal de productos</span>
         <strong>${subtotal.toFixed(2)}</strong>
       </div>
+
+      {/* Solicita confirmación antes de eliminar todo el pedido. */}
+      {pedido.length > 0 && (
+        <div className="pos-pedido__vaciar">
+          {confirmarVaciado ? (
+            <div className="pos-pedido__confirmacion">
+              <p>¿Estás seguro de vaciar todo el pedido?</p>
+
+              <button
+                type="button"
+                onClick={() => {
+                  onVaciar();
+                  setConfirmarVaciado(false);
+                }}
+              >
+                Sí, vaciar
+              </button>
+
+              <button type="button" onClick={() => setConfirmarVaciado(false)}>
+                Cancelar
+              </button>
+            </div>
+          ) : (
+            <button type="button" onClick={() => setConfirmarVaciado(true)}>
+              Vaciar pedido
+            </button>
+          )}
+        </div>
+      )}
     </aside>
   );
 }

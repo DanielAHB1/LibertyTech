@@ -199,4 +199,61 @@
   outline-offset: 3px;
 }
 
+/* Separa la opción de vaciar del subtotal. */
+.pos-pedido__vaciar {
+  margin-top: 24px;
+}
+
+/* Mantiene los botones acordes con Café de Otoño. */
+.pos-pedido__vaciar button {
+  padding: 11px 20px;
+  border: 1px solid #dccab3;
+  border-radius: 999px;
+  background: transparent;
+  color: #5b1e2d;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Organiza el mensaje y las opciones de confirmación. */
+.pos-pedido__confirmacion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pos-pedido__confirmacion p {
+  width: 100%;
+  margin: 0 0 8px;
+  color: #4a3326;
+  font-size: 14px;
+}
+
+/* Destaca la acción que elimina todo el pedido. */
+.pos-pedido__confirmacion button:first-of-type {
+  background: #5b1e2d;
+  border-color: #5b1e2d;
+  color: #f3ede3;
+}
+
+.pos-pedido__confirmacion button:first-of-type:hover {
+  background: #4a3326;
+  border-color: #4a3326;
+}
+
+/* Resalta las opciones secundarias al pasar el mouse. */
+.pos-pedido__vaciar > button:hover,
+.pos-pedido__confirmacion button:last-of-type:hover {
+  background: #dccab3;
+  color: #4a3326;
+}
+
+.pos-pedido__vaciar button:focus-visible {
+  outline: 2px solid #c76a4a;
+  outline-offset: 3px;
+}
+
+
 

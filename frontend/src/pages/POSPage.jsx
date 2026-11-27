@@ -80,9 +80,14 @@ function POSPage() {
       actual.map((item) =>
         item.id_producto === idProducto
           ? { ...item, cantidad: Math.max(1, item.cantidad + cambio) }
-          : item
-      )
+          : item,
+      ),
     );
+  }
+
+  // Limpia todos los productos del pedido actual.
+  function vaciarPedido() {
+    setPedido([]);
   }
 
   return (
@@ -140,11 +145,11 @@ function POSPage() {
       </section>
 
       {/* Muestra los productos agregados y el subtotal del pedido. */}
-
-      <ResumenPedido 
+      <ResumenPedido
         pedido={pedido}
         onEliminar={eliminarDelPedido}
         onCambiarCantidad={cambiarCantidadPedido}
+        onVaciar={vaciarPedido}
       />
     </main>
   );
