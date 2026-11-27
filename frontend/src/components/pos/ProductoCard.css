@@ -1,0 +1,108 @@
+
+/* Tarjeta individual del catálogo POS */
+.pos-card {
+  background-color: #F3EDE3;
+  border: 1px solid #DCCAB3;
+  border-radius: 24px;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Área reservada para la fotografía */
+.pos-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: #C76A4A;
+}
+
+/* Fotografía del producto */
+.pos-card__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 24px;
+}
+
+/* Degradado cálido sobre la fotografía */
+.pos-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(74, 51, 38, 0) 45%,
+    rgba(74, 51, 38, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+/* Apariencia temporal cuando no hay fotografía */
+.pos-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    145deg,
+    #C76A4A,
+    #5B1E2D
+  );
+  color: #F3EDE3;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* Nombre superpuesto en la fotografía */
+.pos-card__media-name {
+  position: absolute;
+  bottom: 22px;
+  left: 20px;
+  right: 20px;
+  z-index: 1;
+  color: #F3EDE3;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 2vw, 30px);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Información debajo de la fotografía */
+.pos-card__info {
+  padding: 20px;
+}
+
+/* Categoría del producto */
+.pos-card__category {
+  display: inline-block;
+  color: #5B1E2D;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+/* Nombre y precio del producto */
+.pos-card__name {
+  margin: 0 0 12px;
+  color: #4A3326;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.pos-card__price {
+  margin: 0;
+  color: #4A3326;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+}

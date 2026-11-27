@@ -60,3 +60,41 @@
     letter-spacing: -1px;
   }
 }
+
+
+
+/* Contenedor principal del catálogo */
+.pos-catalogo {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Organiza los productos en cuatro columnas */
+.pos-productos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Tres columnas en pantallas medianas */
+@media (max-width: 1100px) {
+  .pos-productos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Dos columnas en tabletas */
+@media (max-width: 760px) {
+  .pos-productos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Una columna en celulares pequeños */
+@media (max-width: 480px) {
+  .pos-productos {
+    grid-template-columns: 1fr;
+  }
+}

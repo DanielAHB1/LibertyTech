@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from 'react';
 import { posService } from '../services/posService';
+import ProductoCard from '../components/pos/ProductoCard';
 import './POSPage.css';
 
 function POSPage() {
@@ -64,17 +65,17 @@ useEffect(() => {
         )}
 
         {!cargando && !error && (
-          <div className="pos-productos">
-            {productos.map((producto) => (
-              <article
-                className="pos-producto"
-                key={producto.id_producto}
-              >
-                <h3>{producto.nombre}</h3>
-                <p>${Number(producto.precio).toFixed(2)}</p>
-              </article>
-            ))}
-          </div>
+          
+<div className="pos-productos">
+  {/* Crea una tarjeta por cada producto recibido del backend. */}
+  {productos.map((producto) => (
+    <ProductoCard
+      key={producto.id_producto}
+      producto={producto}
+    />
+  ))}
+</div>
+
         )}
       </section>
     </main>
