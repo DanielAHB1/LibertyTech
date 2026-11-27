@@ -1,12 +1,12 @@
 const { getPool, sql } = require('../config/db');
-
+//parte de este codigo fue realizado con ayuda de IA
 //historial de los turnos de las cajas
 const listarcajas = async (req, res) => {
     try {
         const pool = await getPool();
-        const result = await pool.request().query(`select c.*, s.nombre as sucursal
-            concat(e.nombre, ' ', e.apellido9) as cajero
-            fromm caja c
+        const result = await pool.request().query(`select c.*, s.nombre as sucursal,
+            concat(e.nombre, ' ', e.apellido) as cajero
+            from caja c
             inner join sucursal s on c.id_sucursal = s.id_sucursal
             inner join empleado e on c.id_empleado = e.id_empleado
             order by c.id_caja desc`);

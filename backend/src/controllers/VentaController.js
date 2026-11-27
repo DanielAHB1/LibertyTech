@@ -1,5 +1,5 @@
 const { getPool, sql } = require('../config/db');
-
+//parte de este codigo fue realizado con ayuda de IA
 //mostrar todas las ventas que han sido registradas
 const MostrarVentas = async (req, res) => {
   try {
