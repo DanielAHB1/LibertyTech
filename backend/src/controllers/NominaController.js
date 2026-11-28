@@ -1,13 +1,10 @@
+
 const NominaService = require('../services/NominaService');
 
 class NominaController {
 
-    // GENERAR PLANILLA
-
     async generar(req, res) {
-
         try {
-
             const {
                 id_sucursal,
                 periodo_inicio,
@@ -21,96 +18,77 @@ class NominaController {
                 !periodo_fin ||
                 !fecha_pago
             ) {
-
                 return res.status(400).json({
-
                     ok: false,
-
-                    mensaje:
-                        'Debes enviar id_sucursal, periodo_inicio, periodo_fin y fecha_pago.'
-
+                    mensaje: 'Debes enviar todos los datos de la planilla.'
                 });
-
             }
 
             const planilla = await NominaService.generarPlanilla({
-
                 id_sucursal,
                 periodo_inicio,
                 periodo_fin,
                 fecha_pago
-
             });
 
             return res.status(201).json({
-
                 ok: true,
-
-                mensaje: 'Planilla quincenal generada correctamente.',
-
+                mensaje: 'Planilla generada correctamente.',
                 planilla
-
             });
 
         } catch (error) {
+            if (error.statusCode === 409) {
+                return res.status(409).json({
+                    ok: false,
+                    mensaje: error.message
+                });
+            }
 
-            console.error('Error al generar planilla:', error);
+            if (error.statusCode === 400) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: error.message
+                });
+            }
 
-            const esValidacion =
-                /debe ser|no puede ser|no existen|formato|no es una fecha/.test(
-                    error.message
-                );
+            console.error('Error al generar nómina:', error.message);
 
-            return res.status(esValidacion ? 400 : 500).json({
-
+            return res.status(500).json({
                 ok: false,
-
-                mensaje: error.message ||
-                    'Error al generar la planilla.'
-
+                mensaje: 'No fue posible generar la planilla por un error interno.'
             });
-
         }
-
     }
 
-    // CONSULTAR PLANILLAS
-
     async listar(req, res) {
-
         try {
-
             const planillas = await NominaService.obtenerPlanillas(
                 req.query.id_sucursal
             );
 
             return res.status(200).json({
-
                 ok: true,
-
                 cantidad: planillas.length,
-
                 planillas
-
             });
 
         } catch (error) {
+            if (error.message && error.message.includes('id_sucursal')) {
+                return res.status(400).json({
+                    ok: false,
+                    mensaje: error.message
+                });
+            }
 
-            console.error('Error al consultar planillas:', error);
+            console.error('Error al consultar nómina:', error.message);
 
-            return res.status(400).json({
-
+            return res.status(500).json({
                 ok: false,
-
-                mensaje: error.message ||
-                    'Error al consultar las planillas.'
-
+                mensaje: 'No fue posible consultar las planillas.'
             });
-
         }
-
     }
-
 }
 
 module.exports = new NominaController();
